@@ -1,0 +1,104 @@
+ HTML Dosyası (index.html)
+Eski Kodum:
+Resim etiketi şu şekildeydi:
+
+<img src="./6.JPG" alt="" class="dice" />
+Resim için ID tanımlamamıştım.
+Yeni Kod:
+Resim etiketi değiştirildi:
+html
+<img src="./1.jpg" alt="Dice" class="dice hidden" id="dice-image" />
+Burada ID eklendi (id="dice-image"). Bu sayede JavaScript ile daha kolay kontrol edilebiliyor.
+Ayrıca başlangıçta görünmez olması için hidden sınıfı eklendi.
+2. CSS Dosyası (style.css)
+Eski Kodum:
+filter: blur(); hatalıydı ve herhangi bir blur efekti uygulamıyordu:
+
+
+filter: blur();
+Yeni Kod:
+Bu satır kaldırıldı ve düzenlenmiş haliyle sadeleşti:
+
+backdrop-filter: blur(200px);
+Gereksiz kodlar temizlendi ve arka plan daha şeffaf ve modern bir görünüm kazandı.
+3. JavaScript Dosyası (main.js)
+Fark 1: ID Seçimi Hatası
+Eski Kodum:
+
+
+const current0El = document.getElementById('.current--0');
+Burada getElementById için nokta (.) kullanmışım. Ancak ID'ler için nokta kullanılmaz.
+Yeni Kod:
+
+
+const current0El = document.getElementById('current--0');
+Doğru ID seçimi yapılmış ve artık hatasız çalışıyor.
+Fark 2: Zar Değeri Hesaplama
+Eski Kodum:
+
+
+const dice = Math.trunc(Math.random() * 5) + 1;
+Burada zar değeri 1 ile 5 arasında hesaplanıyordu. Bu nedenle 6 değeri hiç gelmiyordu.
+Yeni Kod:
+
+
+const dice = Math.trunc(Math.random() * 6) + 1;
+Şimdi zar değerleri 1 ile 6 arasında doğru şekilde hesaplanıyor.
+Fark 3: Resim Yolu
+Eski Kodum:
+
+
+diceEl.src = ./${dice}.JPG;
+Burada dosya yolu hatalıydı ve . yanlış kullanılmıştı. Ayrıca dosya uzantısı büyük harfliydi (JPG).
+Yeni Kod:
+
+
+diceEl.src = `./${dice}.jpg`;
+Dosya yolu düzeltilerek küçük harfli uzantı (jpg) kullanıldı. Artık resimler sorunsuz yükleniyor.
+Fark 4: Skor ve Durum Güncelleme
+Eski Kodum:
+
+
+document.getElementById(current--${activePlayer}).textContent =
+    currentScore;
+Burada current--${activePlayer} sözdizimi hatalıydı.
+Yeni Kod:
+
+
+document.getElementById(`current--${activePlayer}`).textContent = currentScore;
+Şimdi template literal (``) kullanıldı ve hatasız çalışıyor.
+Fark 5: Kazanma Kontrolü
+Eski Kodum:
+
+
+document.querySelector(.player--${activePlayer}).classList.add(".player--winner");
+Burada classList.add() metodunda nokta (.) kullanılmıştı.
+Yeni Kod:
+
+
+document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
+Nokta kaldırıldı ve sınıf adı doğru şekilde eklendi.
+Fark 6: Oyuncu Değişimi
+Eski Kodum:
+
+
+document.getElementById(current--${activePlayer}).textContent = 0;
+Template literal hatası vardı.
+Yeni Kod:
+
+
+document.getElementById(`current--${activePlayer}`).textContent = 0;
+Template literal düzgün şekilde ayarlandı ve şimdi hatasız çalışıyor.
+Fark 7: Yeni Oyun Başlatma
+Eski Kodum:
+
+
+player0El.classList.remove('player--active');
+player1El.classList.remove('player--active');
+Burada aktif sınıf yönetimi düzgün yapılmıyordu.
+Yeni Kod:
+
+
+player0El.classList.add('player--active');
+player1El.classList.remove('player--active');
+Oyuncuların aktiflik durumu baştan doğru şekilde ayarlanıyor.
